@@ -6,6 +6,8 @@ import java.util.List;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -116,6 +118,8 @@ public class Pizza {
 		this.ingredients = ingredients;
 	}
 	
+	//commentare L'Ignore per fare la richiesta di index decomentare per la richiesta di post (????)
+	@JsonIgnore
 	public void setIngredients(Ingredient... ingredients) {
 		setIngredients(Arrays.asList(ingredients));
 	}

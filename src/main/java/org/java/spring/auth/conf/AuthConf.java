@@ -16,8 +16,10 @@ public class AuthConf {
 	// Configura la catena di filtri di sicurezza HTTP.
 	@Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		// http.csrf().disable(); // Opzionale: disabilita CSRF
+		http.csrf().disable(); // Opzionale: disabilita CSRF
+		http.cors().disable();
         http.authorizeHttpRequests()
+        	.requestMatchers("/api/**").permitAll()
             .requestMatchers("/pizza/create/**").hasAuthority("admin")
             .requestMatchers("/pizza/edit/**").hasAuthority("admin")
             .requestMatchers("/pizza/delete/**").hasAuthority("admin")
@@ -27,7 +29,6 @@ public class AuthConf {
             .requestMatchers("/ingredients**").hasAuthority("admin")
             .requestMatchers("/ingredient/new**").hasAuthority("admin")
             .requestMatchers("/ingredient/delete/{id}**").hasAuthority("admin")
-            .requestMatchers("/api/**").permitAll()
             .requestMatchers("/**").hasAnyAuthority("user" , "admin")
             .and().formLogin()
             .and().logout();
