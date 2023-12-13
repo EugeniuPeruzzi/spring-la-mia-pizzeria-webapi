@@ -7,7 +7,9 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,7 +45,7 @@ public class Pizza {
 	private double price;  // Prezzo della pizza
 	
 	
-	@OneToMany(mappedBy = "pizza") 
+	@OneToMany(mappedBy = "pizza", cascade = CascadeType.REMOVE) 
 	private List<Discount> discount;
 	
 	@ManyToMany
@@ -109,7 +111,7 @@ public class Pizza {
 		this.discount = discount;
 	}
 	
-
+	@JsonProperty
 	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
@@ -119,6 +121,8 @@ public class Pizza {
 	}
 	
 	//commentare L'Ignore per fare la richiesta di index decomentare per la richiesta di post (????)
+	
+	// risolto la riga 122, Aggiunto JsonProperti a riga 113
 	@JsonIgnore
 	public void setIngredients(Ingredient... ingredients) {
 		setIngredients(Arrays.asList(ingredients));
