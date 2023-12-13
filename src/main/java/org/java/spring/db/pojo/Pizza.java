@@ -40,7 +40,8 @@ public class Pizza {
 	@PositiveOrZero(message = "Il prezzo della pizza deve essere maggiore o uguale a 0.")
 	private double price;  // Prezzo della pizza
 	
-	@OneToMany(mappedBy = "pizza")
+	
+	@OneToMany(mappedBy = "pizza") 
 	private List<Discount> discount;
 	
 	@ManyToMany
