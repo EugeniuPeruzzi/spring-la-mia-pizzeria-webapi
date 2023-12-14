@@ -1,5 +1,8 @@
 <script setup>
+import { defineProps } from 'vue';  
 
+// EMITS
+const emits = defineEmits(["openPizza"]);
 // Props
 const props = defineProps({
     pizzas: {
