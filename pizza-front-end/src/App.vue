@@ -3,34 +3,36 @@
 import Index from './components/Index.vue';
 import axios from "axios";
 import { ref, onMounted } from "vue";
-import PizzaShow from './components/PizzaShow.vue';
+import PizzaCreate from './components/PizzaCreate.vue';
 
 // PROPS
 const pizzas = ref([]);
-const pizzaActive = ref(null);
+const creatingPizza = ref(false);
 
 // FUNCTIONS
+
 // Axios
 const getPizzas = async () => {
   const data = await axios.get("http://localhost:8080/api/pizza");
   pizzas.value = data.data;
 };
 
-const openPizza = (id) => {
-  pizzas.value.forEach((pizza) => {
-    if (pizza.id === id) {
-      pizzaActive.value = pizza;
-    }
-  });
+let pizzaCreated = () => {
+  creatingPizza.value = false;
+  getPizzas();
 };
+
 
 onMounted(getPizzas);
 
 </script>
 
 <template>
+  <PizzaCreate v-if="creatingPizza" @back = "creatingPizza = false" @created = "pizzaCreated"/>
+  <div v-else>
+  <button type="button" class="btn btn-success" @click="creatingPizza = true">Crea pizza</button>
   <Index :pizzas = "pizzas"/>
-  <PizzaShow :pizzas = "pizzaActive" @open-pizza="openPizza"/>
+  </div>
 </template>
 
 <style scoped>
