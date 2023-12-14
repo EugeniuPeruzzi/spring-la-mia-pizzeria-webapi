@@ -22,6 +22,10 @@ let pizzaCreated = () => {
   getPizzas();
 };
 
+const deletePizza = () =>{
+  getPizzas();
+}
+
 
 onMounted(getPizzas);
 
@@ -31,7 +35,7 @@ onMounted(getPizzas);
   <PizzaCreate v-if="creatingPizza" @back = "creatingPizza = false" @created = "pizzaCreated"/>
   <div v-else>
   <button type="button" class="btn btn-success" @click="creatingPizza = true">Crea pizza</button>
-  <Index :pizzas = "pizzas"/>
+  <Index :pizzas = "pizzas" @deletePizza="deletePizza"/>
   </div>
 </template>
 
